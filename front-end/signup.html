@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Vita Scan</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>Vita Scan</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#scan" class="nav-link">Scan</a></li>
+                    <li><a href="index.html#login" class="nav-link">Login</a></li>
+                    <li><a href="index.html#download" class="nav-link">Download Report</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sign Up Section -->
+    <section class="login-section">
+        <div class="container">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="login-icon">✨</div>
+                    <h2 class="section-title">Create New Account</h2>
+                    <p class="login-subtitle">Join Vita Scan to start your health screening journey</p>
+                </div>
+                
+                <!-- Email Verification Message (Hidden by default) -->
+                <div class="verification-message" id="verificationMessage" style="display: none;">
+                    <div class="verification-icon">📧</div>
+                    <h3 class="verification-title">Verification Email Sent!</h3>
+                    <p class="verification-text">
+                        We've sent a verification email to <strong id="verificationEmail"></strong>
+                    </p>
+                    <p class="verification-instructions">
+                        Please check your inbox and click on the verification link to activate your account. 
+                        The link will expire in 24 hours.
+                    </p>
+                    <div class="verification-actions">
+                        <button type="button" class="btn btn-primary" id="resendVerificationBtn">
+                            <span class="btn-text">Resend Verification Email</span>
+                            <span class="btn-loader" style="display: none;">
+                                <span class="spinner"></span>
+                                Sending...
+                            </span>
+                        </button>
+                        <a href="index.html#login" class="btn btn-signup" style="margin-top: 1rem;">
+                            Back to Login
+                        </a>
+                    </div>
+                    <div class="verification-note">
+                        <p>Didn't receive the email? Check your spam folder or try resending.</p>
+                    </div>
+                </div>
+
+                <form class="login-form" id="signupForm" novalidate>
+                    <div class="form-group">
+                        <label for="signup-username">
+                            <span class="label-text">Username</span>
+                            <span class="required-indicator">*</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="signup-username" 
+                                name="username" 
+                                placeholder="Choose a username" 
+                                autocomplete="username"
+                                required
+                                aria-describedby="signup-username-error"
+                            >
+                            <span class="input-icon">👤</span>
+                        </div>
+                        <span class="error-message" id="signup-username-error" role="alert"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">
+                            <span class="label-text">Email Address</span>
+                            <span class="required-indicator">*</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="email" 
+                                id="signup-email" 
+                                name="email" 
+                                placeholder="Enter your email address" 
+                                autocomplete="email"
+                                required
+                                aria-describedby="signup-email-error"
+                            >
+                            <span class="input-icon">📧</span>
+                        </div>
+                        <span class="error-message" id="signup-email-error" role="alert"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">
+                            <span class="label-text">Password</span>
+                            <span class="required-indicator">*</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                id="signup-password" 
+                                name="password" 
+                                placeholder="Create a password" 
+                                autocomplete="new-password"
+                                required
+                                aria-describedby="signup-password-error"
+                            >
+                            <span class="input-icon">🔒</span>
+                            <button type="button" class="toggle-password" id="toggleSignupPassword" aria-label="Toggle password visibility">
+                                👁️
+                            </button>
+                        </div>
+                        <span class="error-message" id="signup-password-error" role="alert"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">
+                            <span class="label-text">Confirm Password</span>
+                            <span class="required-indicator">*</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                id="confirm-password" 
+                                name="confirmPassword" 
+                                placeholder="Confirm your password" 
+                                autocomplete="new-password"
+                                required
+                                aria-describedby="confirm-password-error"
+                            >
+                            <span class="input-icon">🔒</span>
+                            <button type="button" class="toggle-password" id="toggleConfirmPassword" aria-label="Toggle password visibility">
+                                👁️
+                            </button>
+                        </div>
+                        <span class="error-message" id="confirm-password-error" role="alert"></span>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                            <span>I agree to the <a href="#terms" style="color: var(--primary-blue);">Terms & Conditions</a></span>
+                        </label>
+                    </div>
+                    <div class="form-message" id="formMessage" role="alert"></div>
+                    <button type="submit" class="btn btn-primary" id="signupBtn">
+                        <span class="btn-text">Create Account</span>
+                        <span class="btn-loader" style="display: none;">
+                            <span class="spinner"></span>
+                            Creating Account...
+                        </span>
+                    </button>
+                    <div class="back-to-login">
+                        <p style="margin-bottom: 0.5rem; color: var(--text-light); font-size: 0.9rem;">Already have an account?</p>
+                        <a href="index.html#login" class="forgot-password">← Back to Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Sign Up Form Handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const signupForm = document.getElementById('signupForm');
+            const usernameInput = document.getElementById('signup-username');
+            const emailInput = document.getElementById('signup-email');
+            const passwordInput = document.getElementById('signup-password');
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const toggleSignupPassword = document.getElementById('toggleSignupPassword');
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            const signupBtn = document.getElementById('signupBtn');
+            const formMessage = document.getElementById('formMessage');
+
+            // Toggle password visibility
+            if (toggleSignupPassword) {
+                toggleSignupPassword.addEventListener('click', function() {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    toggleSignupPassword.textContent = type === 'password' ? '👁️' : '🙈';
+                });
+            }
+
+            if (toggleConfirmPassword) {
+                toggleConfirmPassword.addEventListener('click', function() {
+                    const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    confirmPasswordInput.setAttribute('type', type);
+                    toggleConfirmPassword.textContent = type === 'password' ? '👁️' : '🙈';
+                });
+            }
+
+            // Email validation
+            function validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            // Field validation
+            function validateField(field, value, confirmValue = null) {
+                const errorElement = document.getElementById(field.id + '-error');
+                let isValid = true;
+                let errorMessage = '';
+
+                field.classList.remove('error', 'success');
+                if (errorElement) {
+                    errorElement.textContent = '';
+                    errorElement.classList.remove('show');
+                }
+
+                if (field.hasAttribute('required') && !value.trim()) {
+                    isValid = false;
+                    errorMessage = `${field.previousElementSibling?.querySelector('.label-text')?.textContent || 'This field'} is required`;
+                } else if (field.id === 'signup-username' && value.trim()) {
+                    if (value.trim().length < 3) {
+                        isValid = false;
+                        errorMessage = 'Username must be at least 3 characters';
+                    } else if (!/^[a-zA-Z0-9_]+$/.test(value.trim())) {
+                        isValid = false;
+                        errorMessage = 'Username can only contain letters, numbers, and underscores';
+                    }
+                } else if (field.id === 'signup-email' && value.trim()) {
+                    if (!validateEmail(value.trim())) {
+                        isValid = false;
+                        errorMessage = 'Please enter a valid email address';
+                    }
+                } else if (field.id === 'signup-password' && value.trim()) {
+                    if (value.length < 6) {
+                        isValid = false;
+                        errorMessage = 'Password must be at least 6 characters';
+                    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Password must contain uppercase, lowercase, and a number';
+                    }
+                } else if (field.id === 'confirm-password' && value.trim()) {
+                    if (confirmValue && value !== confirmValue) {
+                        isValid = false;
+                        errorMessage = 'Passwords do not match';
+                    }
+                }
+
+                if (!isValid && errorMessage) {
+                    field.classList.add('error');
+                    if (errorElement) {
+                        errorElement.textContent = errorMessage;
+                        errorElement.classList.add('show');
+                    }
+                } else if (value.trim()) {
+                    field.classList.add('success');
+                }
+
+                return isValid;
+            }
+
+            // Real-time validation
+            if (usernameInput) {
+                usernameInput.addEventListener('blur', function() {
+                    validateField(this, this.value);
+                });
+                usernameInput.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        validateField(this, this.value);
+                    }
+                });
+            }
+
+            if (emailInput) {
+                emailInput.addEventListener('blur', function() {
+                    validateField(this, this.value);
+                });
+                emailInput.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        validateField(this, this.value);
+                    }
+                });
+            }
+
+            if (passwordInput) {
+                passwordInput.addEventListener('blur', function() {
+                    validateField(this, this.value);
+                    if (confirmPasswordInput.value) {
+                        validateField(confirmPasswordInput, confirmPasswordInput.value, this.value);
+                    }
+                });
+                passwordInput.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        validateField(this, this.value);
+                    }
+                    if (confirmPasswordInput.value) {
+                        validateField(confirmPasswordInput, confirmPasswordInput.value, this.value);
+                    }
+                });
+            }
+
+            if (confirmPasswordInput) {
+                confirmPasswordInput.addEventListener('blur', function() {
+                    validateField(this, this.value, passwordInput.value);
+                });
+                confirmPasswordInput.addEventListener('input', function() {
+                    validateField(this, this.value, passwordInput.value);
+                });
+            }
+
+            // Form submission
+            if (signupForm) {
+                signupForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    hideFormMessage();
+                    
+                    const username = usernameInput.value.trim();
+                    const email = emailInput.value.trim();
+                    const password = passwordInput.value;
+                    const confirmPassword = confirmPasswordInput.value;
+                    const agreeTerms = document.getElementById('agreeTerms').checked;
+
+                    const usernameValid = validateField(usernameInput, username);
+                    const emailValid = validateField(emailInput, email);
+                    const passwordValid = validateField(passwordInput, password);
+                    const confirmPasswordValid = validateField(confirmPasswordInput, confirmPassword, password);
+
+                    if (!agreeTerms) {
+                        showFormMessage('Please agree to the Terms & Conditions to continue.', 'error');
+                        return;
+                    }
+
+                    if (!usernameValid || !emailValid || !passwordValid || !confirmPasswordValid) {
+                        showFormMessage('Please fix the errors above before submitting.', 'error');
+                        return;
+                    }
+
+                    setLoadingState(true);
+
+                    try {
+                        // Save user to localStorage database and simulate email verification
+                        await simulateAccountCreation(username, email, password);
+                        
+                        // Hide form and show verification message
+                        signupForm.style.display = 'none';
+                        const verificationMessage = document.getElementById('verificationMessage');
+                        const verificationEmailSpan = document.getElementById('verificationEmail');
+                        
+                        if (verificationMessage && verificationEmailSpan) {
+                            verificationEmailSpan.textContent = email;
+                            verificationMessage.style.display = 'block';
+                            verificationMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    } catch (error) {
+                        // Handle duplicate email/username errors
+                        const errorMessage = error.message || 'An error occurred. Please try again later.';
+                        showFormMessage(errorMessage, 'error');
+                        
+                        // Highlight the relevant field
+                        if (errorMessage.includes('email')) {
+                            emailInput.classList.add('error');
+                            const emailError = document.getElementById('signup-email-error');
+                            if (emailError) {
+                                emailError.textContent = 'This email is already registered.';
+                                emailError.classList.add('show');
+                            }
+                        } else if (errorMessage.includes('username')) {
+                            usernameInput.classList.add('error');
+                            const usernameError = document.getElementById('signup-username-error');
+                            if (usernameError) {
+                                usernameError.textContent = 'This username is already taken.';
+                                usernameError.classList.add('show');
+                            }
+                        }
+                        setLoadingState(false);
+                    }
+                });
+            }
+
+            // Save user to localStorage database
+            async function simulateAccountCreation(username, email, password) {
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                try {
+                    // Initialize database
+                    if (!localStorage.getItem('vitaScanUsers')) {
+                        localStorage.setItem('vitaScanUsers', JSON.stringify([]));
+                    }
+                    
+                    const users = JSON.parse(localStorage.getItem('vitaScanUsers'));
+                    
+                    // Check if email already exists
+                    const emailExists = users.some(user => user.email.toLowerCase() === email.toLowerCase());
+                    if (emailExists) {
+                        throw new Error('An account with this email already exists.');
+                    }
+                    
+                    // Check if username already exists
+                    const usernameExists = users.some(user => user.username.toLowerCase() === username.toLowerCase());
+                    if (usernameExists) {
+                        throw new Error('This username is already taken.');
+                    }
+                    
+                    // Create new user object
+                    const newUser = {
+                        id: Date.now().toString(),
+                        username: username,
+                        email: email,
+                        password: password, // In production, this would be hashed
+                        createdAt: new Date().toISOString(),
+                        verified: false // Email verification status
+                    };
+                    
+                    // Save to localStorage
+                    users.push(newUser);
+                    localStorage.setItem('vitaScanUsers', JSON.stringify(users));
+                    
+                    return { success: true, user: newUser };
+                } catch (error) {
+                    throw error;
+                }
+            }
+
+            // Simulate backend email verification resend
+            async function simulateResendVerificationEmail(email) {
+                await new Promise(resolve => setTimeout(resolve, 1200));
+                // In a real app, this would call your backend API
+                // Example: await fetch('/api/resend-verification', { method: 'POST', body: JSON.stringify({ email }) });
+                return { success: true };
+            }
+
+            // Resend verification email handler
+            const resendVerificationBtn = document.getElementById('resendVerificationBtn');
+            if (resendVerificationBtn) {
+                resendVerificationBtn.addEventListener('click', async function() {
+                    const verificationEmailSpan = document.getElementById('verificationEmail');
+                    const email = verificationEmailSpan ? verificationEmailSpan.textContent : '';
+                    
+                    if (!email) {
+                        showFormMessage('Email address not found.', 'error');
+                        return;
+                    }
+
+                    setResendLoadingState(true);
+                    const verificationMessage = document.getElementById('verificationMessage');
+                    const verificationNote = verificationMessage?.querySelector('.verification-note');
+
+                    try {
+                        await simulateResendVerificationEmail(email);
+                        if (verificationNote) {
+                            verificationNote.innerHTML = '<p style="color: var(--primary-green); font-weight: 600;">✓ Verification email resent successfully! Please check your inbox.</p>';
+                        }
+                    } catch (error) {
+                        if (verificationNote) {
+                            verificationNote.innerHTML = '<p style="color: #EF5350;">Failed to resend email. Please try again later.</p>';
+                        }
+                    } finally {
+                        setResendLoadingState(false);
+                    }
+                });
+            }
+
+            function setResendLoadingState(isLoading) {
+                if (resendVerificationBtn) {
+                    resendVerificationBtn.disabled = isLoading;
+                    const btnText = resendVerificationBtn.querySelector('.btn-text');
+                    const btnLoader = resendVerificationBtn.querySelector('.btn-loader');
+                    
+                    if (isLoading) {
+                        if (btnText) btnText.style.display = 'none';
+                        if (btnLoader) btnLoader.style.display = 'flex';
+                    } else {
+                        if (btnText) btnText.style.display = 'inline-block';
+                        if (btnLoader) btnLoader.style.display = 'none';
+                    }
+                }
+            }
+
+            function setLoadingState(isLoading) {
+                if (signupBtn) {
+                    signupBtn.disabled = isLoading;
+                    const btnText = signupBtn.querySelector('.btn-text');
+                    const btnLoader = signupBtn.querySelector('.btn-loader');
+                    
+                    if (isLoading) {
+                        if (btnText) btnText.style.display = 'none';
+                        if (btnLoader) btnLoader.style.display = 'flex';
+                    } else {
+                        if (btnText) btnText.style.display = 'inline-block';
+                        if (btnLoader) btnLoader.style.display = 'none';
+                    }
+                }
+            }
+
+            function showFormMessage(message, type = 'info') {
+                if (formMessage) {
+                    formMessage.textContent = message;
+                    formMessage.className = `form-message ${type} show`;
+                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+
+            function hideFormMessage() {
+                if (formMessage) {
+                    formMessage.classList.remove('show');
+                    formMessage.textContent = '';
+                }
+            }
+
+            // Mobile menu toggle
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

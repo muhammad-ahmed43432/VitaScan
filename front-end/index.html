@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vita Scan - Visual Health Screening System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>Vita Scan</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#scan" class="nav-link">Scan</a></li>
+                    <li><a href="#login" class="nav-link">Login</a></li>
+                    <li><a href="#download" class="nav-link">Download Report</a></li>
+                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Vita Scan</h1>
+                <h2 class="hero-subtitle">A Visual Health Screening System for Vitamin Analysis</h2>
+                <p class="hero-description">
+                    Vita Scan is an innovative health-tech Final Year Project that leverages advanced visual analysis 
+                    technology to provide comprehensive vitamin screening and health assessment. Our system combines 
+                    cutting-edge image processing with medical expertise to deliver accurate, non-invasive health insights.
+                </p>
+                <div class="hero-banner">
+                    <div class="banner-placeholder">
+                        <div class="banner-icon">🔬</div>
+                        <p>Health Technology Innovation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scan Section -->
+    <section id="scan" class="scan-section">
+        <div class="container">
+            <h2 class="section-title">Upload Image for Vitamin Analysis</h2>
+            <p class="section-description">Upload a health-related image to begin the visual screening process</p>
+            <div class="scan-card">
+                <form class="scan-form" id="scanForm">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📷</div>
+                        <p class="upload-text">Click to select or drag and drop an image</p>
+                        <p class="upload-hint">Supports: JPG, PNG, JPEG (Max 10MB)</p>
+                        <input type="file" id="imageInput" name="image" accept="image/*" hidden>
+                    </div>
+                    <div class="image-preview" id="imagePreview" style="display: none;">
+                        <img id="previewImg" src="" alt="Preview">
+                        <button type="button" class="btn-remove" id="removeImage">✕ Remove</button>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-scan" id="scanBtn" disabled>Scan Image for Analysis</button>
+                    </div>
+                    <div class="scan-result" id="scanResult" style="display: none;">
+                        <div class="result-icon">✅</div>
+                        <h3>Scan Complete!</h3>
+                        <p>Image processing completed. This is a demo front-end only. No actual analysis is performed.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="login-section">
+        <div class="container">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="login-icon">🔐</div>
+                    <h2 class="section-title">Login to Vita Scan</h2>
+                    <p class="login-subtitle">Access your health screening dashboard</p>
+                </div>
+                <form class="login-form" id="loginForm" novalidate>
+                    <div class="form-group">
+                        <label for="username">
+                            <span class="label-text">Username</span>
+                            <span class="required-indicator">*</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="username" 
+                                name="username" 
+                                placeholder="Enter your username" 
+                                autocomplete="username"
+                                required
+                                aria-describedby="username-error"
+                            >
+                            <span class="input-icon">👤</span>
+                        </div>
+                        <span class="error-message" id="username-error" role="alert"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">
+                            <span class="label-text">Password</span>
+                            <span class="required-indicator">*</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                placeholder="Enter your password" 
+                                autocomplete="current-password"
+                                required
+                                aria-describedby="password-error"
+                            >
+                            <span class="input-icon">🔒</span>
+                            <button type="button" class="toggle-password" id="togglePassword" aria-label="Toggle password visibility">
+                                👁️
+                            </button>
+                        </div>
+                        <span class="error-message" id="password-error" role="alert"></span>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    <div class="form-message" id="formMessage" role="alert"></div>
+                    <button type="submit" class="btn btn-primary" id="loginBtn">
+                        <span class="btn-text">Login</span>
+                        <span class="btn-loader" style="display: none;">
+                            <span class="spinner"></span>
+                            Authenticating...
+                        </span>
+                    </button>
+                    <div class="signup-section" id="signupSection">
+                        <div class="divider">
+                            <span>or</span>
+                        </div>
+                        <a href="signup.html" class="btn btn-signup">
+                            Create New Account
+                        </a>
+                        <p class="signup-hint">Don't have an account? Sign up to get started</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Report Section -->
+    <section id="download" class="download-section">
+        <div class="container">
+            <h2 class="section-title">Download Vitamin Report</h2>
+            <p class="section-description">Get your comprehensive vitamin analysis report in PDF format</p>
+            <div class="download-card">
+                <div class="download-icon">📄</div>
+                <h3>Sample Vitamin Report</h3>
+                <p>Download a sample PDF report to see the format and structure of Vita Scan's vitamin analysis results.</p>
+                <button class="btn btn-download" id="downloadBtn">Download Sample PDF Report</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="row g-4 mt-4">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="how-it-works-card">
+                        <div class="step-image-wrapper">
+                            <img src="Screen shot/upload.png" alt="Image Upload" class="step-image">
+                        </div>
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Image Upload</h3>
+                        <p class="step-description">User uploads a photo of their skin, hair, or nails.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="how-it-works-card">
+                        <div class="step-image-wrapper">
+                            <img src="Screen shot/scanning.png" alt="System Scanning" class="step-image">
+                        </div>
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">System Scans the Image</h3>
+                        <p class="step-description">After upload, the system processes and scans the image.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="how-it-works-card">
+                        <div class="step-image-wrapper">
+                            <img src="Screen shot/download button.png" alt="Report Ready" class="step-image">
+                        </div>
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Report is Ready</h3>
+                        <p class="step-description">Once scanning is complete, the report is generated and a download button appears.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="how-it-works-card">
+                        <div class="step-image-wrapper">
+                            <img src="Screen shot/pdf report.png" alt="Download Report" class="step-image">
+                        </div>
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Download Final Report</h3>
+                        <p class="step-description">User downloads the PDF report containing vitamin deficiency results (currently dummy; real results will be added in Part 2).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">About Vita Scan</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <div class="card-icon">🎓</div>
+                    <h3>Final Year Project</h3>
+                    <p>A smart health tool that checks for vitamin deficiencies using visual analysis.
+Gives users simple, easy-to-understand health insights and reports.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon">💊</div>
+                    <h3>Vitamin Analysis</h3>
+                    <p>An innovative platform for quick vitamin assessment.
+Part of a Final Year Project, it focuses on user-friendly health screening.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-icon">🏥</div>
+                    <h3>Health Technology</h3>
+                    <p>Vita Scan helps users detect vitamin deficiencies non-invasively.
+Provides clear, actionable health information in a few clicks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Vita Scan</h3>
+                    <p></p>
+                </div>
+                <div class="footer-section">
+                    <p><strong>Final Year Project – Part 1</strong></p>
+                    <p>Health Technology Innovation</p>
+                </div>
+                <div class="footer-section">
+                    <p>Credits & References</p>
+                    <p>Medical Imaging Technology</p>
+                    <p>Vitamin Analysis Research</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Vita Scan. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

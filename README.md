@@ -1,6 +1,6 @@
 VitaScan – Vitamin Deficiency Detection System
 
-Overview
+Overview:
 
 VitaScan is an AI-powered system that detects vitamin deficiencies from images of skin, lips, tongue, and other relevant body parts.
 It uses ResNet34 as a feature extractor and a custom classifier for 10 classes.

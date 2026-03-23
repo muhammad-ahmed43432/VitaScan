@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="hero">
+    <h1>AI-Powered <span>Vitamin Deficiency</span> Detection</h1>
+    <p>Upload images of eyes, mouth, skin, or tongue to detect potential vitamin deficiencies. Get instant analysis and downloadable reports.</p>
+    <div class="hero-actions">
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Log In</a>
+        <a href="{{ url_for('signup') }}" class="btn btn-secondary">Create Account</a>
+    </div>
+</section>
+{% endblock %}

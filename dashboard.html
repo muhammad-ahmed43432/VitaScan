@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="dashboard-header">
+    <h1>Detection Dashboard</h1>
+</div>
+
+<div class="card">
+    <h2 class="card-title">Upload Image for Analysis</h2>
+    <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">Upload a clear image of eyes, mouth, skin, or tongue. Minimum 50×50px.</p>
+    <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data" id="upload-form">
+        <div class="file-upload" id="file-upload-area">
+            <input type="file" name="file" accept="image/*" required id="file-input">
+            <p id="upload-text" style="color: var(--color-text-muted);">Click or drag to upload</p>
+            <p id="file-name" style="display: none; color: var(--color-primary); font-weight: 600; margin-top: 0.5rem;"></p>
+        </div>
+        <button type="submit" class="btn btn-primary" id="analyze-btn" style="margin-top: 1rem;" disabled>Analyze Image</button>
+    </form>
+</div>
+
+{% if reports %}
+<div class="recent-reports">
+    <h3>Recent Reports</h3>
+    {% for r in reports %}
+    <div class="report-item">
+        <div>
+            <strong>{{ r.symptom.replace('_', ' ').title() }}</strong> &mdash; {{ r.vitamin_category }}
+            <span style="color: var(--color-text-muted); font-size: 0.9rem;"> ({{ r.confidence|round(1) }}%)</span>
+        </div>
+        <a href="{{ url_for('report', report_id=r.id) }}" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">View</a>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<script>
+document.getElementById('file-input').addEventListener('change', function() {
+    const fileInput = this;
+    const uploadArea = document.getElementById('file-upload-area');
+    const uploadText = document.getElementById('upload-text');
+    const fileName = document.getElementById('file-name');
+    const analyzeBtn = document.getElementById('analyze-btn');
+
+    if (fileInput.files && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        uploadText.textContent = 'Image selected';
+        fileName.textContent = '✓ ' + file.name;
+        fileName.style.display = 'block';
+        uploadArea.style.borderColor = 'var(--color-primary)';
+        uploadArea.style.background = 'rgba(0, 201, 167, 0.08)';
+        analyzeBtn.disabled = false;
+        analyzeBtn.style.opacity = '1';
+        analyzeBtn.style.cursor = 'pointer';
+    } else {
+        uploadText.textContent = 'Click or drag to upload';
+        fileName.style.display = 'none';
+        uploadArea.style.borderColor = '';
+        uploadArea.style.background = '';
+        analyzeBtn.disabled = true;
+        analyzeBtn.style.opacity = '0.6';
+        analyzeBtn.style.cursor = 'not-allowed';
+    }
+});
+// Initial state
+document.getElementById('analyze-btn').style.opacity = '0.6';
+document.getElementById('analyze-btn').style.cursor = 'not-allowed';
+</script>
+{% endblock %}

@@ -1,99 +1,138 @@
-VitaScan – Vitamin Deficiency Detection System
+# 🧠 VitaScan – AI-Based Vitamin Deficiency Risk Screening System
 
-Overview:
+VitaScan is a web-based AI screening platform designed to detect "visual signs associated with Vitamin A and Vitamin B12 deficiency risk" from uploaded images (e.g., eyes, lips, tongue, mouth, and skin).
 
-VitaScan is an AI-powered system that detects vitamin deficiencies from images of skin, lips, tongue, and other relevant body parts.
-It uses ResNet34 as a feature extractor and a custom classifier for 10 classes.
+It provides secure authentication, detection history tracking, and downloadable clinical-style reports.
 
-Goal: Early detection and monitoring of vitamin deficiencies to assist healthcare, wellness, and research.
+> ⚠️ **Important Disclaimer:** 
+> VitaScan is a **screening and risk indication tool**, not a diagnostic system.  
+> Clinical evaluation and laboratory testing are required for final medical diagnosis.
 
-Features / Use Cases
+---
 
-Healthcare Diagnostics: Early identification of deficiencies like vitamin A, B12, etc.
+# 📌 Table of Contents
+- Project Overview  
+- Key Features  
+- System Architecture  
+- Tech Stack  
+- Project Structure  
+- Installation  
+- How to Run  
+- Usage Flow  
+- Model Classes & Interpretation  
+- Database Schema  
+- Configuration  
+- Security Notes  
+- Known Limitations  
+- Future Enhancements  
+- Troubleshooting  
+- License  
+- Acknowledgments  
 
-Remote Health Monitoring: Patients can upload images for assessment.
+# 📊 Project Overview
 
-Preventive Health: Detect early warning signs and suggest dietary adjustments.
+VitaScan integrates multiple components into a unified AI healthcare screening system:
 
-Research & Public Health: Analyze trends in communities.
+- 🧩 **Flask Backend** – Web application logic and routing  
+- 🤖 **PyTorch AI Model** – Image-based symptom classification  
+- 🗄️ **SQLite Database** – User management and report storage  
+- 📈 **Risk Mapping Engine** – Converts predictions into Vitamin A/B12 risk levels  
+- 📄 **Report Generator** – Clinical-style downloadable reports  
 
-Dataset
+The system is designed for **educational, research, and preliminary screening purposes**.
 
-The dataset is organized as follows:
+# ✨ Key Features
 
-vitamin_deficiency/
-├── train/
-│   ├── angular_cheilitis/
-│   ├── bitot_spots/
-│   ├── glossitis/
-│   ├── healthy_elbows/
-│   ├── healthy_eye/
-│   ├── healthy_lips/
-│   ├── healthy_mouth/
-│   ├── healthy_tongue/
-│   ├── phrynoderma/
-│   └── ulcer/
-├── val/
-│   └── ... (same subfolders)
-└── test/
-    └── ... (same subfolders)
+# 🔐 Authentication & Security
+- User registration and login system  
+- Password hashing for secure storage  
+- Password reset via token-based system  
+- Session-based authentication (Flask-Login)
+- 
+# 🧠 AI-Based Detection
+- Image upload and preprocessing  
+- ResNet-based inference model  
+- Confidence score output  
+- Risk classification (Low / Moderate / High)
 
+# 📄 Reports
+- Automated detection reports per analysis  
+- User-specific history tracking  
+- Downloadable reports (PDF via ReportLab / HTML fallback)
 
-Total classes: 10
+# 🎨 User Interface
+- Responsive dashboard  
+- Clean upload & result visualization  
+- Protected detection workflow (login required)
 
-Contains images of vitamin deficiency signs and healthy conditions.
+# 📚 Additional Modules (Scope)
+- Vitamin A & B12 educational blog system  
 
-Project Structure
-.
-├── train.py                # Train the model with Focal Loss & weighted sampler
-├── retrain.py              # Retrain using previous weights
-├── finetune.py             # Fine-tuning with targeted augmentation
-├── model/                  # Saved models (.pth files)
-├── utils.py                # Helper functions (dataset loading, augmentations)
-└── README.md               # Project documentation
+# 🏗️ System Architecture
 
-Installation
+VitaScan follows a layered architecture:
 
-Clone the repository:
+# 1. Presentation Layer
+- HTML (Jinja2 templates)
+- CSS-based UI
+- User interaction pages (login, dashboard, reports)
 
-git clone https://github.com/yourusername/VitaScan.git
-cd VitaScan
+# 2. Application Layer (Flask)
+- Routing and API handling  
+- Authentication logic  
+- Request validation  
+- Orchestration between modules  
 
+# 3. AI Inference Layer
+- PyTorch model loading  
+- Image preprocessing  
+- Feature extraction + classification  
+- Risk interpretation mapping  
 
-Install dependencies:
+# 4. Data Layer
+- SQLite database (`instance/vitamin_app.db`)  
+- Stores users, reports, and reset tokens  
 
-pip install torch torchvision numpy scikit-learn matplotlib tqdm pillow opencv-python
+# 5. Reporting Layer
+- PDF report generation (ReportLab)  
+- HTML fallback reports  
+# 🛠️ Tech Stack
+- **Backend:** Flask  
+- **Authentication:** Flask-Login  
+- **Database:** Flask-SQLAlchemy (SQLite)  
+- **Deep Learning:** PyTorch, torchvision  
+- **Image Processing:** Pillow, OpenCV, NumPy  
+- **Reporting:** ReportLab (PDF generation)  
+- **Frontend:** HTML, CSS (Jinja2 templates)  
 
+# 📁 Project Structure
 
-Ensure you have GPU support if available for faster training.
-
-Usage
-1. Training
-python train.py
-
-
-Uses ResNet34 as feature extractor
-
-Custom classifier: Dropout + Linear layer for 10 classes
-
-Focal Loss for handling hard examples
-
-Weighted sampler for class imbalance
-
-Saves best model based on validation loss
-
-2. Retraining / Fine-Tuning
-training.ipynb
-
-
-Loads previous model weights and continues training
-
-Applies targeted augmentation for weak classes
-
-Evaluation
-
-Accuracy, Precision, Recall, F1-score
-
-Confusion matrix to visualize class-wise performance
-
-Example test accuracy: XX% (replace with your results)
+VitaminApp/
+├── app.py
+├── auth_utils.py
+├── config.py
+├── extensions.py
+├── mapping.py
+├── model.py
+├── models.py
+├── requirements.txt
+│
+├── models/
+│   └── finalized_resnet_best_model.pth
+│
+├── static/
+│   └── css/
+│       └── style.css
+│
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   ├── signup.html
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── report.html
+│   ├── forgot_password.html
+│   └── reset_password.html
+│
+└── instance/
+    └── vitamin_app.db

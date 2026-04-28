@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Report #{{ report.id }}{% endblock %}
+{% block content %}
+<div class="card">
+    <h2 class="card-title">Detection Report</h2>
+    <p style="color: var(--color-text-muted); margin-bottom: 1rem;">Generated on {{ report.created_at.strftime('%B %d, %Y at %I:%M %p') }}</p>
+
+    <div class="result-card">
+        <span class="result-badge {% if report.vitamin_category == 'Healthy' %}result-badge-healthy{% else %}result-badge-deficiency{% endif %}">
+            {{ report.vitamin_category }} - {{ analysis.risk_level }} Risk
+        </span>
+        <h3 style="margin-bottom: 0.5rem;">{{ report.symptom.replace('_', ' ').title() }}</h3>
+        <p style="color: var(--color-text-muted);">Confidence: <strong style="color: var(--color-text);">{{ report.confidence|round(1) }}%</strong></p>
+        <p style="margin-top: 1rem; font-size: 0.95rem;"><strong>Clinical interpretation:</strong> {{ analysis.claim }}</p>
+        <p style="margin-top: 0.5rem; font-size: 0.95rem;">This is an AI-generated screening analysis. Clinical confirmation is recommended.</p>
+        <div class="report-actions">
+            <a href="{{ url_for('download_report', report_id=report.id) }}" class="btn btn-primary">Download Report</a>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">New Detection</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
